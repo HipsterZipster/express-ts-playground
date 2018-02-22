@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-const app = require('../dist/app');
+const server = require('../dist/server');
 const debug = require('debug')('express-test1:server');
 const http = require('http');
 
@@ -11,25 +11,26 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 let port = normalizePort(process.env.PORT || '3000');
+const app = server.Server.bootstrap().app;
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+httpServer.listen(port);
+// add error handler
+httpServer.on('error', onError);
+// add listen handler
+httpServer.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   const port = parseInt(val, 10);
 
@@ -79,7 +80,7 @@ function onError(error) {
  */
 
 function onListening() {
-  const addr = server.address();
+  const addr = httpServer.address();
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;

@@ -45,8 +45,9 @@ export class Server {
    * Configure application
    */
   public config() {
+    console.log('__dirname', __dirname);
     //add static paths
-    this.app.use(serveStatic(path.join(__dirname, "public")));
+    this.app.use(express.static(path.join(__dirname, '..', "public")));
 
     // uncomment after placing your favicon in /public
     //this.app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
