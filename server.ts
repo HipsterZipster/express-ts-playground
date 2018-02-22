@@ -1,18 +1,17 @@
-import * as bodyParser from "body-parser";
-import * as cookieParser from "cookie-parser";
-import { Application, NextFunction, Request, Response, Router } from "express";
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
+import { Application, NextFunction, Request, Response, Router } from 'express';
 import * as favicon from 'serve-favicon';
-import * as logger from "morgan";
-import * as path from "path";
-import * as errorHandler from "errorhandler";
-import { IndexRoute } from "./routes";
-import { serveStatic } from "serve-static";
-import { UsersRoute } from "./routes/users";
+import * as logger from 'morgan';
+import * as path from 'path';
+import * as errorHandler from 'errorhandler';
+import { IndexRoute } from './routes';
+import { serveStatic } from 'serve-static';
+import { UsersRoute } from './routes/users';
 import { BuildsRoute } from './routes/builds';
-import * as express from "express";
+import * as express from 'express';
 
 export class Server {
-
   public app: Application;
   /**
    * Bootstrap the thing
@@ -48,36 +47,42 @@ export class Server {
   public config() {
     console.log('__dirname', __dirname);
     //add static paths
-    this.app.use(express.static(path.join(__dirname, '..', "public")));
+    this.app.use(express.static(path.join(__dirname, '..', 'public')));
 
     // uncomment after placing your favicon in /public
     //this.app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
     //configure pug
-    this.app.set("views", path.join(__dirname, '..', "views"));
-    this.app.set("view engine", "ejs");
+    this.app.set('views', path.join(__dirname, '..', 'views'));
+    this.app.set('view engine', 'ejs');
 
     //mount logger
-    this.app.use(logger("dev"));
+    this.app.use(logger('dev'));
 
     //mount json form parser
     this.app.use(bodyParser.json());
-    this.app.use(bodyParser.urlencoded({extended: false}));
+    this.app.use(bodyParser.urlencoded({ extended: false }));
 
     //mount query string parser
-    this.app.use(bodyParser.urlencoded({
-                                         extended: true
-                                       }));
+    this.app.use(
+      bodyParser.urlencoded({
+        extended: true
+      })
+    );
 
     //mount cookie parser middleware
-    this.app.use(cookieParser("SECRET_GOES_HERE"));
+    this.app.use(cookieParser('SECRET_GOES_HERE'));
 
     // catch 404 and forward to error handler
-    this.app.use(
-      function (err: any, req: Request, res: Response, next: NextFunction) {
-        err.status = 404;
-        next(err);
-      });
+    this.app.use(function(
+      err: any,
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ) {
+      err.status = 404;
+      next(err);
+    });
 
     //error handling
     this.app.use(errorHandler());

@@ -1,13 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
 export class BaseRoute {
-
   protected title: string;
   private scripts: string[];
 
   constructor() {
     //initialize variables
-    this.title = "Express JS";
+    this.title = 'Express JS';
     this.scripts = [];
   }
 
@@ -34,7 +33,7 @@ export class BaseRoute {
    */
   render(req: Request, res: Response, view: string, options?: Object) {
     //add constants
-    res.locals.BASE_URL = "/";
+    res.locals.BASE_URL = '/';
 
     //add scripts
     res.locals.scripts = this.scripts;
