@@ -53,7 +53,7 @@ export class Server {
     //this.app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
     //configure pug
-    this.app.set("views", path.join(__dirname, "views"));
+    this.app.set("views", path.join(__dirname, '..', "views"));
     this.app.set("view engine", "ejs");
 
     //mount logger
