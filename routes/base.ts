@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 export class BaseRoute {
 
   protected title: string;
-
   private scripts: string[];
 
   constructor() {

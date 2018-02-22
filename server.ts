@@ -8,11 +8,12 @@ import * as errorHandler from "errorhandler";
 import { IndexRoute } from "./routes";
 import { serveStatic } from "serve-static";
 import { UsersRoute } from "./routes/users";
+import { BuildsRoute } from './routes/builds';
 import * as express from "express";
 
 export class Server {
-  public app: Application;
 
+  public app: Application;
   /**
    * Bootstrap the thing
    */
@@ -92,6 +93,7 @@ export class Server {
     //IndexRoute
     IndexRoute.create(router);
     UsersRoute.create(router);
+    BuildsRoute.create(router, this.app);
 
     //use router middleware
     this.app.use(router);
